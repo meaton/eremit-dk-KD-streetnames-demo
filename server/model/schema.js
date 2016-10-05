@@ -11,6 +11,7 @@ mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://' + mongocfg.host + ':' + mongocfg.post + '/' + mongocfg.db);
 
 module.exports = {};
+module.exports.Types = mongoose.Types;
 module.exports.doc = mongoose.model('KD_document', mongoose.Schema({
   did: {
     type: String,
