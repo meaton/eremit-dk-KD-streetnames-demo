@@ -56,23 +56,30 @@
                         data-slider-step="<%= dateInterval %>"
                         data-slider-value="<%= dateStart %>"/>
                       <label for="fZoom"><input id="fZoom" type="checkbox" checked="checked"/>Zoom</label>
+                      <label for="fYearFilter"><input id="fYearFilter" type="checkbox"/>Brug filter i dokument resultater</label>
                     </div>
                 </div>
                 <div class="row">
-                  <div id="documents" class="col-md-12">
-                    <!-- partial holder -->
-                    <span aria-label="Arrow up"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
-                    Klik på en fremhævet gade for at se relaterede dokumenter.</span>
+                  <div class="col-md-8"><div id="filterLabel" class="label label-info pull-right">Viser <%= dateStart %> - <%= dateStart + dateInterval %></div></div>
+                  <div id="map-helptext" class="col-md-8"><span aria-label="Arrow up"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                    Klik på en fremhævet gade for at se relaterede dokumenter.
                   </div>
                 </div>
+                <div id="documents" class="row"></div><!-- partial holder -->
             </div>
         </section>
+        <footer class="footer">
+          <div class="container">
+            <p class="text-muted"><a href="https://git.sc.ku.dk/lwn190/eremit-dk-KD-express" title="Git repository">Git</a> </p>
+          </div>
+        </footer>
 
     </div>
     <!-- build:js js/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
 
+    <!--
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
 
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
@@ -95,7 +102,7 @@
 
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
 
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>-->
 
     <script src="/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
 

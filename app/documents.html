@@ -1,0 +1,32 @@
+<div class="documents col-xs-12">
+  <h4>
+    Relaterede dokumenter
+  </h4>
+  <button type="button" class="clearMap btn">Klar</button>
+  <% if (documents) { %>
+    <div class="row">
+      <div class="col-xs-8">
+        <% if (target) { %>
+          <p class="selection text-info">
+            <span aria-label="Gade"><i class="fa fa-road" aria-hidden="true" /></span>
+            <%= target %>
+          </p>
+          <ul class="list-group">
+          <% documents.forEach(function(document) {
+            document.streets.forEach(function(street) { %>
+              <% if (street.modern == target) { %>
+                <li class="list-group-item">
+                  <span class="tag tag-default pull-right"><i><%= street.original %></i></span>
+                  <a href="http://eremit.dk<%= document.url_ref %>" target="_blank"><%= document.bind_no %>:<%= document.did %></a>
+                </li>
+              <% } %>
+            <% }) %>
+          <% }) %>
+        </ul>
+        <% } %>
+      </div>
+    </div>
+  <% } else { %>
+    <div>Ingen resultater</div>
+  <% } %>
+</div>
