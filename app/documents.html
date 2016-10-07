@@ -2,7 +2,7 @@
   <h4>
     Relaterede dokumenter
   </h4>
-  <button type="button" class="clearMap btn">Klar</button>
+  <button type="button" class="clearMap btn">Ryd</button>
   <% if (documents) { %>
     <div class="row">
       <div class="col-xs-8">
@@ -12,12 +12,14 @@
             <%= target %>
           </p>
           <ul class="list-group">
+            <!--action-link text "se alle kilder fra gaden" | "se kilder for årti" -->
           <% documents.forEach(function(document) {
             document.streets.forEach(function(street) { %>
               <% if (street.modern == target) { %>
                 <li class="list-group-item">
                   <span class="tag tag-default pull-right"><i><%= street.original %></i></span>
                   <a href="http://eremit.dk<%= document.url_ref %>" target="_blank"><%= document.bind_no %>:<%= document.did %></a>
+                  <span class="date">(<%= document.dateFormatted %>)</span>
                 </li>
               <% } %>
             <% }) %>

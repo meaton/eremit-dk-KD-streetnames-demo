@@ -1,7 +1,11 @@
 {
+  "name": "eremit-dk-kd-express",
+  "version": "0.0.1",
+  "description": "Leaflet.js map displaying Copenhagen streets related to København Diplomatarium documents.",
+  "main": "app.js",
   "private": true,
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=0.12.16"
   },
   "scripts": {
     "start": "node app.js"
@@ -48,6 +52,7 @@
     "ejs": "^2.3.1",
     "express": "^4.12.3",
     "gulp-cssimport": "^2.1.1",
+    "moment": "^2.15.1",
     "mongoose": "^4.6.2",
     "node-slack": "0.0.7",
     "request": "^2.55.0",

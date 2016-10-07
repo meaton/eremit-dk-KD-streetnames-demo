@@ -38,6 +38,11 @@
                 <div class="navbar-collapse collapse">
                     <ul id="nav-list" class="nav navbar-nav navbar-right">
                     </ul>
+                    <div class="sponsored navbar-text navbar-right">Sponsored by <a href="http://info.clarin.dk" target="_blank">CLARIN-DK</a>
+                      <a title="CLARIN ERIC" href="https://www.clarin.eu/" target="_blank" class="clarin-logo">
+                        <img src="/images/CLARIN-Logo.png" alt="CLARIN ERIC logo" data-pin-nopin="true">
+                      </a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -48,19 +53,26 @@
                         <div id="KDmap"></div>
                     </div>
                     <div id="controls" class="col-md-4">
-                      <label for="fSlider">Filter efter år</label>
-                      <input id="fSlider" class="slider" type="text"
-                        data-slider-id='fSlider'
-                        data-slider-min="<%= dateStart %>"
-                        data-slider-max="<%= dateEnd %>"
-                        data-slider-step="<%= dateInterval %>"
-                        data-slider-value="<%= dateStart %>"/>
-                      <label for="fZoom"><input id="fZoom" type="checkbox" checked="checked"/>Zoom</label>
-                      <label for="fYearFilter"><input id="fYearFilter" type="checkbox"/>Brug filter i dokument resultater</label>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div id="filterLabel" class="label label-default">Valgt årti: <span class="datePeriod"><%= dateStart %> - <%= dateStart + dateInterval %></span></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="fSlider">Filter efter årti</label>
+                          <input id="fSlider" class="slider" type="text"
+                            data-slider-id='fSlider'
+                            data-slider-min="<%= dateStart %>"
+                            data-slider-max="<%= dateEnd %>"
+                            data-slider-step="<%= dateInterval %>"
+                            data-slider-value="<%= dateStart %>"/>
+                          <label for="fZoom"><input id="fZoom" type="checkbox" checked="checked"/>Zoom</label>
+                        </div>
+                      </div>
                     </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-8"><div id="filterLabel" class="label label-info pull-right">Viser <%= dateStart %> - <%= dateStart + dateInterval %></div></div>
                   <div id="map-helptext" class="col-md-8"><span aria-label="Arrow up"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     Klik på en fremhævet gade for at se relaterede dokumenter.
                   </div>

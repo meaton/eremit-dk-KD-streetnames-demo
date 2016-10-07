@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var routes = require('./routes/routes');
 var api = require('./api/api');
+var ejs = require('ejs');
 
 function Server() {
     var app = express();
@@ -12,7 +13,8 @@ function Server() {
     app.disable('x-powered-by');
 
     // Setup view engine for server side templating
-    app.engine('html', require('ejs').renderFile);
+
+    app.engine('html', ejs.renderFile);
     app.set('view engine', 'html');
     app.set('port', port);
 
@@ -25,7 +27,7 @@ function Server() {
     // Returns middleware that parses cookies
     app.use(cookieParser());
     app.use('/api', api);
-    
+
     routes(app);
 
     return app;

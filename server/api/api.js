@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var romanize = require('romanize');
+var moment = require('moment');
 
 var schema = require('../model/schema.js');
 
@@ -32,11 +33,12 @@ router.get('/map-streets/get-documents/:start?', function(req, res) {
       query.date = { $gte : dateYear, $lt: dateYear_1 };
     }
 
-    schema.doc.find(query).select('did  bind_no url_ref streets').exec(function(err, docs) {
+    schema.doc.find(query).select('did  bind_no url_ref date streets').sort('date').exec(function(err, docs) {
       if (!err) {
         if (docs && docs.length > 0) {
           docs = docs.map((v) => {
             v.bind_no = romanize(v.bind_no);
+            v.dateFormatted = moment(v.date).format('DD-MM-YYYY');
             return v;
           });
 

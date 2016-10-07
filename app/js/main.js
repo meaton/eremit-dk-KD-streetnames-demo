@@ -10,8 +10,8 @@ mySlider.on('slideStop', function(val) {
     leaf_layer.clearLayers();
 
   if (val.value >= start_date && val.value <= end_date) {
-    $('#filterLabel').text('Viser ' + val.value + ' - ' + (val.value + mySlider.slider('getAttribute', 'step')));
-    loadStreetsData(val);
+    $('#filterLabel .datePeriod').text(val.value + ' - ' + (val.value + mySlider.slider('getAttribute', 'step')));
+    loadStreetsData(val); //TODO: load docs for all matching streets 
   }
 });
 
@@ -88,7 +88,7 @@ function onClicked(e) {
   var url = '/api/map-streets/get-documents';
   console.log('clicked feature: ' + e.target.feature.properties.Id);
 
-  if ($('#fYearFilter').is(':checked'))
+  if (mySlider.slider('isEnabled'))
     url = url + '/' + mySlider.slider('getValue');
 
   $.get(url, { street: e.target.feature.properties.Gadenavn }).done(function(docs) {
