@@ -24,6 +24,7 @@
     "gulp-filter": "^1.0.2",
     "gulp-flatten": "^0.0.4",
     "gulp-handlebars": "^4.0.0",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^1.2.1",
     "gulp-imagemin": "^1.2.1",
     "gulp-jshint": "^1.5.3",

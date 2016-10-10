@@ -17,6 +17,6 @@ gulp.task('html', ['styles', 'fonts'], function () {
     .pipe($.if('*.css', cssChannel()))
     .pipe(assets.restore())
     .pipe($.useref())
-    .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
+    .pipe($.if('*.html', $.htmlmin({processConditionalComments: true, collapseWhitespace: true})))
     .pipe(gulp.dest('dist'));
 });
