@@ -1,7 +1,6 @@
 // bower:scss
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import "../../bower_components/font-awesome/scss/font-awesome.scss";
-@import "../../bower_components/seiyria-bootstrap-slider/src/sass/bootstrap-slider.scss";
 // endbower
 .slider {
   margin-left: 10px;
@@ -37,8 +36,18 @@
    font-size: 1.1em;
  }
 
+ #filterLabel.label {
+   font-size: 1.5em;
+   line-height: 1.5;
+ }
+
 #controls input[type="checkbox"] {
   margin: 5px 4px 5px 0px;
+}
+
+#documents.row {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #documents .partial {

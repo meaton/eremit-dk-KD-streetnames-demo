@@ -11,7 +11,7 @@ router.get('/map-streets/get-documents/json/:start', function(req, res) {
     var dateYear_1 = new Date(dateYear.getTime());
     dateYear_1.setFullYear(dateYear.getFullYear() + 10)
 
-    schema.doc.find({ date: { $gte : dateYear, $lt: dateYear_1 }, streets: { $exists: true, $ne: [] } }, { _id: 0, did: 1, bind_no: 1, url_ref: 1, date: 1, streets: 1 }, function (err, docs) {
+    schema.doc.find({ date: { $gte : dateYear, $lt: dateYear_1 }, streets: { $exists: true, $ne: [] } }, { _id: 0, did: 1, bind_no: 1, url_ref: 1, date: 1, streets: 1 }).sort("streets.modern").exec(function (err, docs) {
         if (err) res.send(err);
         res.json(docs);
     });
@@ -33,7 +33,7 @@ router.get('/map-streets/get-documents/:start?', function(req, res) {
       query.date = { $gte : dateYear, $lt: dateYear_1 };
     }
 
-    schema.doc.find(query).select('did  bind_no url_ref date streets').sort('date').exec(function(err, docs) {
+    schema.doc.find(query).select('did  bind_no url_ref date streets').sort('date streets.modern').exec(function(err, docs) {
       if (!err) {
         if (docs && docs.length > 0) {
           docs = docs.map((v) => {
