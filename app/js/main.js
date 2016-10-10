@@ -1,30 +1,41 @@
 var leaf_layer;
-var start_date = 1450, end_date = 1540;
+var streetsMap = [];
+var start_date = 1450, end_date = 1540, transitionInt = 150;
+var slider_opts = { precision: 10, value: 1450, enabled: false };
 
-var mySlider = $("#fSlider").slider({ precision: 10, value: 1450, enabled: false });
+var mySlider = $("#fSlider").slider(slider_opts);
+
 mySlider.on('slideEnabled', function() {
   loadStreetsData();
 });
+
 mySlider.on('slideStop', function(val) {
   if (leaf_layer)
     leaf_layer.clearLayers();
 
+  //reset
+  resetMap();
+
   if (val.value >= start_date && val.value <= end_date) {
     $('#filterLabel .datePeriod').text(val.value + ' - ' + (val.value + mySlider.slider('getAttribute', 'step')));
-    loadStreetsData(val); //TODO: load docs for all matching streets 
+    setTimeout(loadStreetsData, 150, val);
   }
 });
 
 var KDmap = L.map('KDmap').setView([55.678, 12.575], 13);
+
 KDmap.on('popupopen', function(popup) {});
+
 L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWVhdG9uMnZlZ2dpZXMiLCJhIjoiY2lzcmsweTVkMDA0MTJ6bXJxenc0MDVvYSJ9.SoOKdWLPa_WDpOXJ6f_FtQ', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
     id: 'kd_map'
-}).on('load', function(evt) {
+})
+.on('load', function(evt) {
   if (!mySlider.slider('isEnabled'))
     mySlider.slider('enable');
-}).addTo(KDmap)
+})
+.addTo(KDmap)
 
 function loadStreetsData(val) {
   if (val == undefined)
@@ -35,8 +46,12 @@ function loadStreetsData(val) {
         $.each(val.streets, function(j, street) {
           $.getJSON('/api/map-streets/location/' + street.modern, function(geodata) {
             addLayer(geodata);
-            if (j == val.streets.length - 1 && i == result.length - 1)
-              if ($('#fZoom').is(':checked')) KDmap.fitBounds(leaf_layer.getBounds());
+            if (j == val.streets.length - 1 && i == result.length - 1) {
+              if ($('#fZoom').is(':checked'))
+                KDmap.fitBounds(leaf_layer.getBounds());
+              loadStreetDocuments(street.modern, true);
+            } else
+              loadStreetDocuments(street.modern);
           });
         });
       });
@@ -60,41 +75,65 @@ function addLayer(data) {
         });
       }
     });
+
     leaf_layer.addTo(KDmap);
   }
 };
 
-function addDocuments(docRendered, isRendered) {
-  var docsElem = $('#documents');
-  if (isRendered) {
-    docsElem.find('.documents .row').replaceWith($(docRendered).children('.row'));
-  } else {
-    docsElem.append(docRendered);
-    $('.clearMap').on('click', function(evt) {
-      $('#map-helptext').removeClass('hide');
-      $('#documents').removeClass('results');
-      setTimeout(function() {
-        $('#documents').empty();
-      }, 1000);
+function loadStreetDocuments(street, isLast) {
+  var url = '/api/map-streets/get-documents';
+  var docsPartial = $('#documents .partial');
+
+  if (!docsPartial.is(':empty') && streetsMap.length == 0)
+    docsPartial.empty();
+
+  if (isLast === undefined)
+    isLast = false;
+
+  if (streetsMap.indexOf(street) == -1) {
+    streetsMap.push(street);
+
+    if (mySlider.slider('isEnabled'))
+      url = url + '/' + mySlider.slider('getValue');
+
+    $.get(url, { street: street }).done(function(docs) {
+      var hasResults = docsPartial.hasClass('results') || isLast;
+      if (docs)
+        addDocuments(docs, hasResults);
     });
-
-    $('#map-helptext').addClass('hide');
+  } else if (isLast) {
+    docsPartial.addClass('results');
   }
+};
 
-  docsElem.addClass('results');
+function addDocuments(docRendered, isRendered) {
+  var docsPartial = $('#documents .partial');
+  docsPartial.append(docRendered);
+
+  if (!$('#map-helptext').hasClass('hide'))
+    $('#map-helptext').addClass('hide');
+
+  if ($('#documents').hasClass('hide'))
+    $('#documents').removeClass('hide');
+
+  if (!docsPartial.hasClass('results') && isRendered)
+    docsPartial.addClass('results');
 };
 
 function onClicked(e) {
-  var url = '/api/map-streets/get-documents';
   console.log('clicked feature: ' + e.target.feature.properties.Id);
-
-  if (mySlider.slider('isEnabled'))
-    url = url + '/' + mySlider.slider('getValue');
-
-  $.get(url, { street: e.target.feature.properties.Gadenavn }).done(function(docs) {
-    var docsElem = $('#documents');
-    var hasResults = docsElem.hasClass('results');
-    if (docs)
-      setTimeout(addDocuments, 50, docs, hasResults);
-  });
+  resetMap();
+  //TODO: use filter if results are already shown (not cleared)
+  setTimeout(loadStreetDocuments, transitionInt, e.target.feature.properties.Gadenavn, true);
 };
+
+$('.clearMap').on('click', function(evt) {
+  resetMap();
+  $('#map-helptext').removeClass('hide');
+  $('#documents').addClass('hide');
+});
+
+function resetMap() {
+  $('#documents .partial').removeClass('results');
+  streetsMap = [];
+}

@@ -8,12 +8,15 @@
 
      <!-- Place favicon.ico in the root directory -->
     <link rel="icon" href="favicon.ico">
+
+    <!-- leafletJS styles CDN -->
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.1/leaflet.css">
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -29,8 +32,6 @@
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <a id="brand-link" class="navbar-brand" href="#index">Københavns Diplomatarium - Gadenavne (demo)</a>
@@ -72,58 +73,45 @@
                       </div>
                     </div>
                 </div>
-                <div class="row">
-                  <div id="map-helptext" class="col-md-8"><span aria-label="Arrow up"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                <div id="map-helptext" class="row hide">
+                  <div class="col-md-8"><span aria-label="Arrow up"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     Klik på en fremhævet gade for at se relaterede dokumenter.
                   </div>
                 </div>
-                <div id="documents" class="row"></div><!-- partial holder -->
+                <div id="documents" class="row">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>
+                        Relaterede dokumenter
+                      </h4>
+                      <button type="button" class="clearMap btn">Ryd</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8 partial"></div><!-- partial holder -->
+                  </div>
+                </div>
             </div>
         </section>
         <footer class="footer">
           <div class="container">
-            <p class="text-muted"><a href="https://git.sc.ku.dk/lwn190/eremit-dk-KD-express" title="Git repository">Git</a> </p>
+            <p class="text-muted"><a href="https://git.sc.ku.dk/lwn190/eremit-dk-KD-express" title="Git repository">Git repository</a> | source: <a href="http://eremit.dk/ebog/kd/" title="Københavns Diplomatarium">Nielsen, Oluf (Udg.), Kjøbenhavns Diplomatarium I - X</a> </p>
           </div>
         </footer>
 
     </div>
+
     <!-- build:js js/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
-
-    <!--
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
-
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>-->
-
     <script src="/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
-
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/plugins.js -->
     <!-- endbuild -->
 
+    <!-- leafletJS CDN -->
     <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
 
     <!-- build:js js/main.js -->

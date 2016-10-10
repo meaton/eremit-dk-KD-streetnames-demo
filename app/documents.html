@@ -1,11 +1,6 @@
-<div class="documents col-xs-12">
-  <h4>
-    Relaterede dokumenter
-  </h4>
-  <button type="button" class="clearMap btn">Ryd</button>
   <% if (documents) { %>
-    <div class="row">
-      <div class="col-xs-8">
+    <div class="documents row">
+      <div class="col-xs-12 street">
         <% if (target) { %>
           <p class="selection text-info">
             <span aria-label="Gade"><i class="fa fa-road" aria-hidden="true" /></span>
@@ -31,4 +26,3 @@
   <% } else { %>
     <div>Ingen resultater</div>
   <% } %>
-</div>

@@ -41,7 +41,7 @@
   margin: 5px 4px 5px 0px;
 }
 
-#documents {
+#documents .partial {
   visibility: hidden;
   opacity: 0;
   -webkit-transition: visibility 0s, opacity 0.2s linear;
@@ -49,9 +49,10 @@
   transition: visibility 0s, opacity 0.2s linear;
 }
 
-#documents.results {
+#documents .partial.results {
   visibility: visible;
   opacity: 1;
+  margin-top: 15px;
 }
 
 .documents button {
