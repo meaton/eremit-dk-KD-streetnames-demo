@@ -77,9 +77,10 @@ router.get('/map-streets/document/:ref', function(req, res) {
 router.get('/map-streets/location/:street', function(req, res) {
   if (req.params.street && req.params.street.length <= 255) {
     schema.street.findOne({ "properties.Gadenavn": req.params.street }, { _id: 0, 'geometry._id': 0, '__v': 0 }, function(err, geodata) {
-      if (err) res.send(err);
-      geodata.properties = geodata.properties[0]; //TODO change to single object in database
-      res.json(geodata);
+      if (err)
+        res.send(err);
+      else
+        res.json(geodata);
     });
   }
 });
