@@ -41,10 +41,10 @@ function loadStreetsData(val) {
   if (val == undefined)
     val = { value: start_date };
 
-  $.getJSON('/api/map-streets/get-documents/json/' + val.value, function(result) {
+  $.getJSON('api/map-streets/get-documents/json/' + val.value, function(result) {
       $.each(result, function(i, val) {
         $.each(val.streets, function(j, street) {
-          $.getJSON('/api/map-streets/location/' + street.modern, function(geodata) {
+          $.getJSON('api/map-streets/location/' + street.modern, function(geodata) {
             addLayer(geodata);
             if (j == val.streets.length - 1 && i == result.length - 1) {
               if ($('#fZoom').is(':checked'))
@@ -81,7 +81,7 @@ function addLayer(data) {
 };
 
 function loadStreetDocuments(street, isLast) {
-  var url = '/api/map-streets/get-documents';
+  var url = 'api/map-streets/get-documents';
   var docsPartial = $('#documents .partial');
 
   if (!docsPartial.is(':empty') && streetsMap.length == 0)
