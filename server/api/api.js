@@ -33,7 +33,7 @@ router.get('/map-streets/get-documents/:start?', function(req, res) {
       query.date = { $gte : dateYear, $lt: dateYear_1 };
     }
 
-    schema.doc.find(query).select('did  bind_no url_ref date streets').sort('date streets.modern').exec(function(err, docs) {
+    schema.doc.find(query).select('did bind_no url_ref date streets').sort('date streets.modern').exec(function(err, docs) {
       if (!err) {
         if (docs && docs.length > 0) {
           docs = docs.map((v) => {
